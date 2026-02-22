@@ -1,6 +1,6 @@
 # REST API Documentation
 
-This document describes the REST API endpoints available in the Inspection System backend.
+This document describes the REST API endpoints available in the Inspection System backend with Laravel 12.0.
 
 ## Base URL
 
