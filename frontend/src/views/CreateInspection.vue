@@ -177,35 +177,35 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-import BaseCard from "../components/ui/BaseCard.vue";
-import BaseInput from "../components/ui/BaseInput.vue";
-import BaseSelect from "../components/ui/BaseSelect.vue";
-import BaseButton from "../components/ui/BaseButton.vue";
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import BaseCard from '../components/ui/BaseCard.vue';
+import BaseInput from '../components/ui/BaseInput.vue';
+import BaseSelect from '../components/ui/BaseSelect.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
 
 const router = useRouter();
 const store = useStore();
 
 const inspectionTypes = computed(
-  () => store.getters["masterData/inspectionTypes"],
+  () => store.getters['masterData/inspectionTypes'],
 );
-const allocations = computed(() => store.getters["masterData/allocations"]);
-const owners = computed(() => store.getters["masterData/owners"]);
-const conditions = computed(() => store.getters["masterData/conditions"]);
+const allocations = computed(() => store.getters['masterData/allocations']);
+const owners = computed(() => store.getters['masterData/owners']);
+const conditions = computed(() => store.getters['masterData/conditions']);
 
 const form = ref({
-  type: "",
+  type: '',
   items: [],
 });
 
 const addItem = () => {
   form.value.items.push({
-    lot_no: "",
-    allocation: "",
-    owner: "",
-    condition: "",
+    lot_no: '',
+    allocation: '',
+    owner: '',
+    condition: '',
     qty_required: 1,
     qty_available: 0,
   });
@@ -217,33 +217,33 @@ const removeItem = (index) => {
 
 const submitInspection = async () => {
   if (form.value.items.length === 0) {
-    await store.dispatch("ui/alert", {
-      title: "Validation Error",
-      message: "Please add at least one item.",
-      type: "warning",
+    await store.dispatch('ui/alert', {
+      title: 'Validation Error',
+      message: 'Please add at least one item.',
+      type: 'warning',
     });
     return;
   }
 
-  store.dispatch("ui/startLoading", "Creating inspection...");
+  store.dispatch('ui/startLoading', 'Creating inspection...');
   try {
-    await store.dispatch("inspection/createInspection", form.value);
-    store.dispatch("ui/stopLoading");
+    await store.dispatch('inspection/createInspection', form.value);
+    store.dispatch('ui/stopLoading');
 
-    await store.dispatch("ui/alert", {
-      title: "Success",
-      message: "Inspection created successfully.",
-      type: "success",
+    await store.dispatch('ui/alert', {
+      title: 'Success',
+      message: 'Inspection created successfully.',
+      type: 'success',
     });
-    router.push("/");
+    router.push('/');
   } catch (error) {
-    store.dispatch("ui/stopLoading");
-    await store.dispatch("ui/alert", {
-      title: "Error",
+    store.dispatch('ui/stopLoading');
+    await store.dispatch('ui/alert', {
+      title: 'Error',
       message:
-        "Failed to create inspection: " +
+        'Failed to create inspection: ' +
         (error.response?.data?.message || error.message),
-      type: "danger",
+      type: 'danger',
     });
   }
 };

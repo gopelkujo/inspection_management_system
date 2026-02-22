@@ -84,7 +84,7 @@
           </h3>
           <p class="text-gray-500 mt-1">
             There are no inspections in
-            {{ currentTab.toLowerCase().replace("_", " ") }} status.
+            {{ currentTab.toLowerCase().replace('_', ' ') }} status.
           </p>
         </div>
         <div v-else :key="currentTab" class="overflow-x-auto">
@@ -160,24 +160,24 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { useStore } from "vuex";
-import BaseCard from "../components/ui/BaseCard.vue";
-import BaseButton from "../components/ui/BaseButton.vue";
-import BaseBadge from "../components/ui/BaseBadge.vue";
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import BaseCard from '../components/ui/BaseCard.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
+import BaseBadge from '../components/ui/BaseBadge.vue';
 
 const store = useStore();
 
 const tabs = [
-  { name: "OPEN", label: "Open" },
-  { name: "FOR_REVIEW", label: "For Review" },
-  { name: "COMPLETED", label: "Completed" },
+  { name: 'OPEN', label: 'Open' },
+  { name: 'FOR_REVIEW', label: 'For Review' },
+  { name: 'COMPLETED', label: 'Completed' },
 ];
 
-const currentTab = ref("OPEN");
+const currentTab = ref('OPEN');
 
 onMounted(() => {
-  store.dispatch("inspection/fetchAllInspections");
+  store.dispatch('inspection/fetchAllInspections');
 });
 
 const loading = computed(() => store.state.inspection.loading);
@@ -189,7 +189,7 @@ const filteredInspections = computed(() => {
 });
 
 const getInspectionLabel = (code) => {
-  const type = store.getters["masterData/inspectionTypes"].find(
+  const type = store.getters['masterData/inspectionTypes'].find(
     (t) => t.code === code,
   );
   return type ? type.label : code;
@@ -197,22 +197,22 @@ const getInspectionLabel = (code) => {
 
 const getStatusVariant = (status) => {
   switch (status) {
-    case "OPEN":
-      return "info";
-    case "FOR_REVIEW":
-      return "warning";
-    case "COMPLETED":
-      return "success";
+    case 'OPEN':
+      return 'info';
+    case 'FOR_REVIEW':
+      return 'warning';
+    case 'COMPLETED':
+      return 'success';
     default:
-      return "neutral";
+      return 'neutral';
   }
 };
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   });
 };
 </script>

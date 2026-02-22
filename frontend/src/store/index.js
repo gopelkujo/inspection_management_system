@@ -4,9 +4,9 @@ import inspection from './modules/inspection';
 import ui from './modules/ui';
 
 export default createStore({
-    modules: {
-        masterData,
-        inspection,
-        ui
-    }
+  modules: {
+    masterData,
+    inspection,
+    ui,
+  },
 });

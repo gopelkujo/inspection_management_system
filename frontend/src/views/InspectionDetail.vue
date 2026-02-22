@@ -177,13 +177,13 @@
                 {{ item.lot_no }}
               </td>
               <td class="px-4 py-3 text-sm text-gray-500">
-                {{ getMasterLabel(item.allocation, "allocations") }}
+                {{ getMasterLabel(item.allocation, 'allocations') }}
               </td>
               <td class="px-4 py-3 text-sm text-gray-500">
-                {{ getMasterLabel(item.owner, "owners") }}
+                {{ getMasterLabel(item.owner, 'owners') }}
               </td>
               <td class="px-4 py-3 text-sm text-gray-500">
-                {{ getMasterLabel(item.condition, "conditions") }}
+                {{ getMasterLabel(item.condition, 'conditions') }}
               </td>
               <td
                 class="px-4 py-3 text-sm text-right text-gray-900 font-medium"
@@ -309,28 +309,28 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
-import { useStore } from "vuex";
-import BaseCard from "../components/ui/BaseCard.vue";
-import BaseBadge from "../components/ui/BaseBadge.vue";
-import BaseButton from "../components/ui/BaseButton.vue";
-import BaseInput from "../components/ui/BaseInput.vue";
-import BaseSelect from "../components/ui/BaseSelect.vue";
+import { onMounted, computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import BaseCard from '../components/ui/BaseCard.vue';
+import BaseBadge from '../components/ui/BaseBadge.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
+import BaseInput from '../components/ui/BaseInput.vue';
+import BaseSelect from '../components/ui/BaseSelect.vue';
 
-const props = defineProps(["id"]);
+const props = defineProps(['id']);
 const store = useStore();
 
 const inspection = computed(() => store.state.inspection.currentInspection);
 
-const allocations = computed(() => store.getters["masterData/allocations"]);
-const owners = computed(() => store.getters["masterData/owners"]);
-const conditions = computed(() => store.getters["masterData/conditions"]);
+const allocations = computed(() => store.getters['masterData/allocations']);
+const owners = computed(() => store.getters['masterData/owners']);
+const conditions = computed(() => store.getters['masterData/conditions']);
 
 const isEditing = ref(false);
 const editForm = ref({ items: [] });
 
 onMounted(() => {
-  store.dispatch("inspection/fetchInspection", props.id);
+  store.dispatch('inspection/fetchInspection', props.id);
 });
 
 const startEditing = () => {
@@ -347,10 +347,10 @@ const cancelEditing = () => {
 
 const addItem = () => {
   editForm.value.items.push({
-    lot_no: "",
-    allocation: "",
-    owner: "",
-    condition: "",
+    lot_no: '',
+    allocation: '',
+    owner: '',
+    condition: '',
     qty_required: 1,
     qty_available: 0,
   });
@@ -362,82 +362,82 @@ const removeItem = (index) => {
 
 const saveItems = async () => {
   if (editForm.value.items.length === 0) {
-    await store.dispatch("ui/alert", {
-      title: "Validation Error",
-      message: "Please add at least one item.",
-      type: "warning",
+    await store.dispatch('ui/alert', {
+      title: 'Validation Error',
+      message: 'Please add at least one item.',
+      type: 'warning',
     });
     return;
   }
 
-  store.dispatch("ui/startLoading", "Saving items...");
+  store.dispatch('ui/startLoading', 'Saving items...');
   try {
-    await store.dispatch("inspection/updateInspection", {
+    await store.dispatch('inspection/updateInspection', {
       id: props.id,
       payload: { items: editForm.value.items },
     });
-    await store.dispatch("inspection/fetchInspection", props.id); // Refresh data
+    await store.dispatch('inspection/fetchInspection', props.id); // Refresh data
     isEditing.value = false;
-    store.dispatch("ui/stopLoading");
-    await store.dispatch("ui/alert", {
-      title: "Success",
-      message: "Items updated successfully",
-      type: "success",
+    store.dispatch('ui/stopLoading');
+    await store.dispatch('ui/alert', {
+      title: 'Success',
+      message: 'Items updated successfully',
+      type: 'success',
     });
   } catch (error) {
-    store.dispatch("ui/stopLoading");
-    await store.dispatch("ui/alert", {
-      title: "Error",
+    store.dispatch('ui/stopLoading');
+    await store.dispatch('ui/alert', {
+      title: 'Error',
       message:
-        "Failed to save items: " +
+        'Failed to save items: ' +
         (error.response?.data?.message || error.message),
-      type: "danger",
+      type: 'danger',
     });
   }
 };
 
 const updateStatus = async (status) => {
-  const confirmed = await store.dispatch("ui/confirm", {
-    title: "Update Status",
+  const confirmed = await store.dispatch('ui/confirm', {
+    title: 'Update Status',
     message: `Are you sure you want to change status to ${status}?`,
-    confirmText: "Yes, Update",
-    type: "warning",
+    confirmText: 'Yes, Update',
+    type: 'warning',
   });
 
   if (!confirmed) return;
 
-  store.dispatch("ui/startLoading", "Updating status...");
+  store.dispatch('ui/startLoading', 'Updating status...');
   try {
-    await store.dispatch("inspection/updateInspection", {
+    await store.dispatch('inspection/updateInspection', {
       id: props.id,
       payload: { status },
     });
-    await store.dispatch("inspection/fetchInspection", props.id); // Refresh data
-    store.dispatch("ui/stopLoading");
-    await store.dispatch("ui/alert", {
-      title: "Success",
-      message: "Status updated successfully",
-      type: "success",
+    await store.dispatch('inspection/fetchInspection', props.id); // Refresh data
+    store.dispatch('ui/stopLoading');
+    await store.dispatch('ui/alert', {
+      title: 'Success',
+      message: 'Status updated successfully',
+      type: 'success',
     });
   } catch (error) {
-    store.dispatch("ui/stopLoading");
-    await store.dispatch("ui/alert", {
-      title: "Error",
-      message: "Failed to update status",
-      type: "danger",
+    store.dispatch('ui/stopLoading');
+    await store.dispatch('ui/alert', {
+      title: 'Error',
+      message: 'Failed to update status',
+      type: 'danger',
     });
   }
 };
 
 const getInspectionLabel = (code) => {
-  const type = store.getters["masterData/inspectionTypes"].find(
+  const type = store.getters['masterData/inspectionTypes'].find(
     (t) => t.code === code,
   );
   return type ? type.label : code;
 };
 
 const getMasterLabel = (code, type) => {
-  if (!code) return "-";
+  if (!code) return '-';
   const list = store.getters[`masterData/${type}`] || [];
   const item = list.find((t) => t.code === code);
   return item ? item.label : code;
@@ -445,28 +445,28 @@ const getMasterLabel = (code, type) => {
 
 const getStatusVariant = (status) => {
   switch (status) {
-    case "OPEN":
-      return "info";
-    case "FOR_REVIEW":
-      return "warning";
-    case "COMPLETED":
-      return "success";
+    case 'OPEN':
+      return 'info';
+    case 'FOR_REVIEW':
+      return 'warning';
+    case 'COMPLETED':
+      return 'success';
     default:
-      return "neutral";
+      return 'neutral';
   }
 };
 
 const formatDate = (dateString) => {
   return (
     new Date(dateString).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
     }) +
-    " " +
+    ' ' +
     new Date(dateString).toLocaleTimeString(undefined, {
-      hour: "2-digit",
-      minute: "2-digit",
+      hour: '2-digit',
+      minute: '2-digit',
     })
   );
 };

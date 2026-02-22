@@ -21,21 +21,21 @@
 </template>
 
 <script setup>
-import { onMounted, computed } from "vue";
-import { useStore } from "vuex";
-import AppLayout from "./components/layout/AppLayout.vue";
-import BaseDialog from "./components/ui/BaseDialog.vue";
-import BaseLoader from "./components/ui/BaseLoader.vue";
+import { onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
+import AppLayout from './components/layout/AppLayout.vue';
+import BaseDialog from './components/ui/BaseDialog.vue';
+import BaseLoader from './components/ui/BaseLoader.vue';
 
 const store = useStore();
 
 const dialog = computed(() => store.state.ui.dialog);
 const loading = computed(() => store.state.ui.loading);
 
-const handleConfirm = () => store.dispatch("ui/handleConfirm");
-const handleCancel = () => store.dispatch("ui/handleCancel");
+const handleConfirm = () => store.dispatch('ui/handleConfirm');
+const handleCancel = () => store.dispatch('ui/handleCancel');
 
 onMounted(() => {
-  store.dispatch("masterData/fetchMasterData");
+  store.dispatch('masterData/fetchMasterData');
 });
 </script>

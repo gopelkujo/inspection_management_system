@@ -2,7 +2,7 @@
   <Transition name="dialog">
     <div
       v-if="isOpen"
-      class="fixed inset-0 z-[100] overflow-y-auto"
+      class="fixed inset-0 z-100 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -30,7 +30,7 @@
           <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
               <div
-                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10"
+                class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10"
                 :class="iconBgClass"
               >
                 <svg
@@ -131,7 +131,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed } from 'vue';
 
 const props = defineProps({
   isOpen: Boolean,
@@ -143,10 +143,10 @@ const props = defineProps({
   showCancel: Boolean,
 });
 
-const emit = defineEmits(["confirm", "cancel"]);
+const emit = defineEmits(['confirm', 'cancel']);
 
-const onConfirm = () => emit("confirm");
-const onCancel = () => emit("cancel");
+const onConfirm = () => emit('confirm');
+const onCancel = () => emit('cancel');
 const handleBackdropClick = () => {
   if (!props.showCancel) {
     onConfirm(); // For alerts, clicking backdrop acts as OK
@@ -157,27 +157,27 @@ const handleBackdropClick = () => {
 
 const iconBgClass = computed(() => {
   switch (props.type) {
-    case "warning":
-      return "bg-amber-100";
-    case "danger":
-      return "bg-red-100";
-    case "success":
-      return "bg-emerald-100";
+    case 'warning':
+      return 'bg-amber-100';
+    case 'danger':
+      return 'bg-red-100';
+    case 'success':
+      return 'bg-emerald-100';
     default:
-      return "bg-blue-100";
+      return 'bg-blue-100';
   }
 });
 
 const confirmButtonClass = computed(() => {
   switch (props.type) {
-    case "warning":
-      return "bg-amber-600 hover:bg-amber-500";
-    case "danger":
-      return "bg-red-600 hover:bg-red-500";
-    case "success":
-      return "bg-emerald-600 hover:bg-emerald-500";
+    case 'warning':
+      return 'bg-amber-600 hover:bg-amber-500';
+    case 'danger':
+      return 'bg-red-600 hover:bg-red-500';
+    case 'success':
+      return 'bg-emerald-600 hover:bg-emerald-500';
     default:
-      return "bg-indigo-600 hover:bg-indigo-500";
+      return 'bg-indigo-600 hover:bg-indigo-500';
   }
 });
 </script>
