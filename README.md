@@ -1,6 +1,6 @@
 # Item Inspection Management System
 
-An intuitive Single Page Application (SPA) designed to streamline the management of item inspections within a warehouse or inventory environment. Built with Laravel 11 and Vue 3.
+An intuitive Single Page Application (SPA) designed to streamline the management of item inspections within a warehouse or inventory environment. Built with Laravel 12.0 and Vue 3.
 
 ---
 
@@ -79,8 +79,8 @@ A centralized dictionary to keep the application's data clean and standardized.
 
 ## 🛠 Tech Stack
 
-- **Backend**: Laravel 11, Sanctum, SQLite (for dev/testing), Pest/PHPUnit
-- **Frontend**: Vue 3, Vite, Pinia, Vue Router, TailwindCSS
+- **Backend**: Laravel 12.0, Sanctum, SQLite (for dev/testing), Pest/PHPUnit
+- **Frontend**: Vue 3, Vite, Vuex, Vue Router, TailwindCSS
 - **Testing**: Vitest (Frontend), PHPUnit (Backend)
 
 ## ✨ Features
@@ -139,6 +139,7 @@ A centralized dictionary to keep the application's data clean and standardized.
 
 ## 📚 Documentation
 
+- REST API documentation is available in [API_DOCS.md](API_DOCS.md).
 - API Routes are defined in `routes/api.php`.
 - Frontend stores are in `src/stores`.
 - Master data is seeded via `MasterDataSeeder`.
